@@ -1,0 +1,19 @@
+{
+  "name": "miniproject1",
+  "version": "1.0.0",
+  "description": "jo kuch bi pada hai sab isme lagana hai ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ayush_katiyar",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.1"
+  }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body>
+    <div
+      class="w-full min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-black text-white p-10"
+    >
+      <!-- Top Bar -->
+      <div class="w-full flex justify-end mb-6">
+        <a
+          class="bg-red-500 hover:bg-red-600 transition rounded-full px-5 py-2 text-sm font-semibold shadow-lg"
+          href="/logout"
+        >
+          Logout
+        </a>
+      </div>
+
+      <!-- Greeting Card -->
+      <div
+        class="max-w-3xl bg-zinc-800 border border-zinc-700 rounded-2xl p-6 shadow-xl mb-10"
+      >
+        <h3 class="text-3xl mb-1">
+          <span class="font-light text-zinc-400">Hello</span>,
+          <span class="font-semibold text-cyan-400"><%= user.name %></span> 👋🏻
+        </h3>
+        <p class="text-zinc-400">Share your thoughts with the world</p>
+      </div>
+
+      <!-- Create Post -->
+      <div
+        class="max-w-3xl bg-zinc-800 border border-zinc-700 rounded-2xl p-6 shadow-xl mb-16"
+      >
+        <h4 class="text-xl mb-4 text-emerald-400">Create a new post</h4>
+
+        <form action="/post" method="post">
+          <textarea
+            placeholder="What's on your mind?"
+            class="w-full p-4 mb-4 resize-none rounded-xl bg-zinc-900 border border-zinc-700 outline-none focus:ring-2 focus:ring-emerald-500 transition"
+            rows="4"
+            name="content"
+          ></textarea>
+
+          <input
+            class="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 transition rounded-full font-semibold cursor-pointer"
+            type="submit"
+            value="Post"
+          />
+        </form>
+      </div>
+
+      <!-- Posts Heading -->
+      <h3 class="text-2xl mb-6 text-orange-400">Your Posts</h3>
+
+      <!-- Posts Container -->
+      <div class="flex flex-col gap-5 max-w-3xl">
+        <% user.posts.reverse().forEach(function(post){ %>
+
+        <div
+          class="p-5 bg-zinc-800 border border-zinc-700 rounded-2xl shadow-md hover:shadow-xl transition"
+        >
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-cyan-400 font-semibold">@<%= user.username %></h4>
+            <small class="text-zinc-400 text-sm">
+              ❤️ <%= post.likes.length %>
+            </small>
+          </div>
+
+          <p class="text-sm text-zinc-200 mb-4"><%= post.content %></p>
+
+          <div class="flex gap-6 text-sm">
+            <a
+              class="text-emerald-400 hover:text-emerald-300 transition"
+              href="/like/<%= post._id %>"
+            >
+              <% if (post.likes.indexOf(user._id) === -1) { %> Like <% } else {
+              %> Unlike <% } %>
+            </a>
+
+            <a
+              class="text-zinc-400 hover:text-white transition"
+              href="/edit/<%= post._id %>"
+            >
+              Edit
+            </a>
+            <a
+              class="text-red-400 hover:text-red-300 transition"
+              href="/delete/<%= post._id %>"
+            >
+              Delete
+            </a>
+          </div>
+        </div>
+
+        <% }) %>
+      </div>
+    </div>
+  </body>
+</html>

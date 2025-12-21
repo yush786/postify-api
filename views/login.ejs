@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body>
+    <!-- Background -->
+    <div
+      class="w-full min-h-screen bg-slate-950 flex items-center justify-center px-4"
+    >
+      <!-- Card -->
+      <div
+        class="w-full max-w-md bg-zinc-800/90 backdrop-blur
+               border border-zinc-700 rounded-2xl shadow-xl p-8"
+      >
+        <!-- Heading -->
+        <h3 class="text-3xl font-semibold text-center text-white mb-1">
+          Welcome Back 👋
+        </h3>
+        <p class="text-center text-zinc-400 mb-8 text-sm">
+          Login to continue to your dashboard
+        </p>
+
+        <!-- Form -->
+        <form action="/login" method="post" class="flex flex-col gap-5">
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="email"
+            placeholder="Email address"
+            name="email"
+          />
+
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="password"
+            placeholder="Password"
+            name="password"
+          />
+
+          <!-- Button -->
+          <input
+            class="mt-3 px-5 py-3 bg-emerald-500 hover:bg-emerald-600
+                   text-black font-semibold rounded-full
+                   cursor-pointer transition transform hover:scale-[1.02]"
+            type="submit"
+            value="Login"
+          />
+        </form>
+
+        <!-- Divider -->
+        <div class="my-6 border-t border-zinc-700"></div>
+
+        <!-- Extra -->
+        <p class="text-center text-zinc-400 text-sm">
+          New here?
+          <a href="/" class="text-emerald-400 hover:underline font-medium">
+            Create an account
+          </a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

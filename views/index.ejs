@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body>
+    <!-- Background -->
+    <div
+      class="w-full min-h-screen bg-slate-950 flex items-center justify-center px-4"
+    >
+      <!-- Card -->
+      <div
+        class="w-full max-w-md bg-zinc-800/90 backdrop-blur
+               border border-zinc-700 rounded-2xl shadow-xl p-8"
+      >
+        <!-- Heading -->
+        <h3 class="text-3xl font-semibold text-center text-white mb-1">
+          Create Account 🚀
+        </h3>
+        <p class="text-center text-zinc-400 mb-8 text-sm">
+          Join and start sharing your thoughts
+        </p>
+
+        <!-- Form -->
+        <form action="/register" method="post" class="flex flex-col gap-4">
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="text"
+            placeholder="Username"
+            name="username"
+          />
+
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="text"
+            placeholder="Full name"
+            name="name"
+          />
+
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="number"
+            placeholder="Age"
+            name="age"
+          />
+
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="email"
+            placeholder="Email address"
+            name="email"
+          />
+
+          <input
+            class="px-4 py-3 rounded-xl bg-zinc-900 text-white
+                   placeholder-zinc-500 outline-none
+                   border border-zinc-700
+                   focus:ring-2 focus:ring-emerald-500 transition"
+            type="password"
+            placeholder="Password"
+            name="password"
+          />
+
+          <!-- Button -->
+          <input
+            class="mt-4 px-5 py-3 bg-emerald-500 hover:bg-emerald-600
+                   text-black font-semibold rounded-full
+                   cursor-pointer transition transform hover:scale-[1.02]"
+            type="submit"
+            value="Create Account"
+          />
+        </form>
+
+        <!-- Divider -->
+        <div class="my-6 border-t border-zinc-700"></div>
+
+        <!-- Extra -->
+        <p class="text-center text-zinc-400 text-sm">
+          Already have an account?
+          <a href="/login" class="text-emerald-400 hover:underline font-medium">
+            Login here
+          </a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
