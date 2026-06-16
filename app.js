@@ -5,11 +5,36 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
+app.use(cookieParser());
+const multer = require("multer");
+const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 const mongoose = require("mongoose");
+app.use(express.static(path.join(__dirname, "public")));
+
+crypto.randomBytes(12, function(err,bytes){
+  console.log(bytes.toString("hex"));
+});
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/uploads');
+  },
+  filename: function (req, file, cb) {
+    crypto.randomBytes(12,function(err,bytes){
+      if(err) return cb(err);
+      const fn = bytes.toString("hex")+path.extname(file.originalname);
+      cb(null,fn);
+    });
+  },
+});
+
+const upload = multer({ storage: storage });
+
+
+
 
 // ---------------- DATABASE ----------------
 mongoose.connect("mongodb://127.0.0.1:27017/miniproject");
@@ -20,6 +45,33 @@ const postmodel = require("./Models/post");
 // ---------------- HOME ----------------
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+//----------------image upload----------------
+app.get("/profile/uploads", (req, res) => {
+  res.render("profileuploads");
+});
+
+app.post("/uploads", isloggedIn, upload.single("image"), async (req, res) => {
+  console.log("UPLOAD ROUTE HIT");
+
+  let user = await usermodel.findOne({ email: req.user.email });
+  user.profilepic = req.file.filename;
+  await user.save();
+  
+  res.redirect("/profile");
+});
+
+//---------------Multer----------------
+app.get("/test", (req, res) => {
+  res.render("test");
+});
+
+
+//----------------upload file----------------
+app.post("/upload", upload.single("image"), (req, res) => {
+ console.log(req.file);
+  res.send("file uploaded successfully");
 });
 
 // ---------------- LOGIN PAGE ----------------
