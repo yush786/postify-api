@@ -15,6 +15,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 app.use(express.static(path.join(__dirname, "public")));
 
+const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
+
 crypto.randomBytes(12, function(err,bytes){
   console.log(bytes.toString("hex"));
 });
@@ -37,7 +39,10 @@ const upload = multer({ storage: storage });
 
 
 // ---------------- DATABASE ----------------
-mongoose.connect("mongodb://127.0.0.1:27017/miniproject");
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/miniproject';
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 const usermodel = require("./Models/usermodel");
 const postmodel = require("./Models/post");
@@ -173,7 +178,7 @@ app.post("/register", async (req, res) => {
         password: hash,
       });
 
-      let token = jwt.sign({ email, userid: user._id }, "secretkey");
+      let token = jwt.sign({ email, userid: user._id }, JWT_SECRET);
 
       res.cookie("token", token);
       res.redirect("/profile");
@@ -191,7 +196,7 @@ app.post("/login", async (req, res) => {
   bcrypt.compare(password, user.password, (err, result) => {
     if (!result) return res.redirect("/login");
 
-    let token = jwt.sign({ email: user.email, userid: user._id }, "secretkey");
+    let token = jwt.sign({ email: user.email, userid: user._id }, JWT_SECRET);
 
     res.cookie("token", token);
     res.redirect("/profile");
@@ -209,7 +214,7 @@ function isloggedIn(req, res, next) {
   if (!req.cookies.token) return res.redirect("/login");
 
   try {
-    let data = jwt.verify(req.cookies.token, "secretkey");
+    let data = jwt.verify(req.cookies.token, JWT_SECRET);
     req.user = data;
     next();
   } catch (err) {
@@ -219,6 +224,11 @@ function isloggedIn(req, res, next) {
 }
 
 // ---------------- SERVER ----------------
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+module.exports = app;
